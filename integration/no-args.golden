@@ -3,4 +3,5 @@ Usage: defang [<flags>] [FILE]
 Optional flags:
 
   -h, --help      display help
+  -r, --refang    refang IOCs
   -V, --version   display version

@@ -16,6 +16,7 @@ import (
 var version string
 
 type config struct {
+	refang bool
 }
 
 type app struct {
@@ -27,6 +28,7 @@ func main() {
 
 	d := app{}
 
+	pflag.BoolVarP(&d.Config.refang, "refang", "r", false, "refang IOCs")
 	displayVersion := pflag.BoolP("version", "V", false, "display version")
 	displayHelp := pflag.BoolP("help", "h", false, "display help")
 
@@ -53,8 +55,19 @@ func (d app) processInput() {
 
 	var output string
 
-	scanner := bufio.NewScanner(d.input)
+	if d.Config.refang {
+		output = d.refangIOCs()
+	} else {
+		output = d.defangIOCs()
+	}
 
+	fmt.Print(output)
+	clipboard.WriteAll(output)
+
+}
+
+func (d app) defangIOCs() (output string) {
+	scanner := bufio.NewScanner(d.input)
 	for scanner.Scan() {
 		text := scanner.Text()
 
@@ -85,10 +98,19 @@ func (d app) processInput() {
 		}
 
 	}
+	return
+}
 
-	fmt.Print(output)
-	clipboard.WriteAll(output)
+func (d app) refangIOCs() (output string) {
+	scanner := bufio.NewScanner(d.input)
+	for scanner.Scan() {
+		text := scanner.Text()
 
+		u, _ := defang.Refang(text)
+		output += u + "\n"
+
+	}
+	return
 }
 
 // getInput determines the input source between STDIN, String param or file name

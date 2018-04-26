@@ -6,13 +6,13 @@ import (
 	"testing"
 )
 
-func ExampleDefangIPv4() {
+func ExampleIPv4() {
 	defangedIP, _ := IPv4("8.8.8.8")
 	fmt.Println(defangedIP)
 	// Output: 8.8.8[.]8
 }
 
-func TestDefangIPv4(t *testing.T) {
+func TestIPv4(t *testing.T) {
 	type args struct {
 		ip interface{}
 	}

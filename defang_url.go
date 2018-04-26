@@ -11,9 +11,11 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Mask allows the user to apply a different defanging scheme if they are in a fun mood
 type Mask int
 
 const (
+	// Nsfw marks the URL as Nsfw
 	Nsfw Mask = iota
 	Meow
 	Evil
@@ -89,6 +91,7 @@ func URL(rawURL interface{}) (string, error) {
 	return output, nil
 }
 
+// URLWithMask defangs a URL and applies the specified defanging scheme
 func URLWithMask(rawURL interface{}, m Mask) (string, error) {
 
 	output, err := URL(rawURL)

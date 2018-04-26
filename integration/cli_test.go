@@ -52,6 +52,7 @@ func TestCliArgs(t *testing.T) {
 		{"no arguments", []string{}, "no-args.golden"},
 		{"one argument", []string{"google.com"}, "one-argument.golden"},
 		{"file", []string{"testdata/blob.txt"}, "file.golden"},
+		{"refang file", []string{"-r", "integration/file.golden"}, "refang-file.golden"},
 	}
 
 	for _, tt := range tests {

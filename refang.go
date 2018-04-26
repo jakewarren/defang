@@ -9,6 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Refang takes a defanged IOC and returns it to it's original form
 func Refang(input interface{}) (string, error) {
 
 	var output string

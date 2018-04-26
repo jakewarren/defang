@@ -14,7 +14,7 @@ dev:
 
 #Install a release build on your local system
 install: clean
-	@go install ${LDFLAGS} cmd/defang/main.go
+	@go install ${LDFLAGS} github.com/jakewarren/defang/cmd/defang
 
 build: 
 	@go build ${LDFLAGS_DEV} -o bin/${BINARY} cmd/defang/main.go
