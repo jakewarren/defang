@@ -1,0 +1,6 @@
+Usage: defang [<flags>] [FILE]
+
+Optional flags:
+
+  -h, --help      display help
+  -V, --version   display version
