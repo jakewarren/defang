@@ -17,6 +17,9 @@ var version string
 
 type config struct {
 	refang bool
+	nsfw   bool
+	evil   bool
+	meow   bool
 }
 
 type app struct {
@@ -29,6 +32,9 @@ func main() {
 	d := app{}
 
 	pflag.BoolVarP(&d.Config.refang, "refang", "r", false, "refang IOCs")
+	pflag.BoolVarP(&d.Config.nsfw, "nsfw", "n", false, "defang the URL scheme with nsfw")
+	pflag.BoolVarP(&d.Config.evil, "evil", "e", false, "defang the URL scheme with evil")
+	pflag.BoolVarP(&d.Config.meow, "meow", "m", false, "kitty!")
 	displayVersion := pflag.BoolP("version", "V", false, "display version")
 	displayHelp := pflag.BoolP("help", "h", false, "display help")
 
@@ -68,6 +74,17 @@ func (d app) processInput() {
 
 func (d app) defangIOCs() (output string) {
 	scanner := bufio.NewScanner(d.input)
+
+	m := defang.Hxxp
+
+	if d.Config.meow {
+		m = defang.Meow
+	} else if d.Config.nsfw {
+		m = defang.Nsfw
+	} else if d.Config.evil {
+		m = defang.Evil
+	}
+
 	for scanner.Scan() {
 		text := scanner.Text()
 
@@ -78,7 +95,7 @@ func (d app) defangIOCs() (output string) {
 
 			address := strings.Split(e, "@")
 
-			u, _ := defang.URL(address[1])
+			u, _ := defang.URLWithMask(address[1], m)
 
 			defangedEmail := address[0] + "@" + u
 
@@ -92,7 +109,7 @@ func (d app) defangIOCs() (output string) {
 		links := commonregex.Links(text)
 
 		for _, l := range links {
-			u, _ := defang.URL(l)
+			u, _ := defang.URLWithMask(l, m)
 
 			output += u + "\n"
 		}

@@ -15,9 +15,13 @@ import (
 type Mask int
 
 const (
-	// Nsfw marks the URL as Nsfw
-	Nsfw Mask = iota
+	// Hxxp applies the default URL scheme of hxxp
+	Hxxp Mask = iota
+	// Nsfw marks the URL scheme as meow
+	Nsfw
+	// Meow marks the URL scheme as meow
 	Meow
+	// Evil marks the URL scheme as evile
 	Evil
 )
 
@@ -106,6 +110,10 @@ func URLWithMask(rawURL interface{}, m Mask) (string, error) {
 		maskStr = "meow"
 	case Evil:
 		maskStr = "evil"
+	}
+
+	if m == 0 {
+		return output, nil
 	}
 
 	re := regexp.MustCompile(`^hxxp`)

@@ -1,4 +1,5 @@
 1.2.3.4
 google.com
 operator@fancybear.com
+https://malware.downloadme.com
 multiple IOCs on this line. 8.8.8.8 and 1.1.1.1 are DNS resolvers. noreply@github.com

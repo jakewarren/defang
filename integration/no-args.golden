@@ -2,6 +2,9 @@ Usage: defang [<flags>] [FILE]
 
 Optional flags:
 
+  -e, --evil      defang the URL scheme with evil
   -h, --help      display help
+  -m, --meow      kitty!
+  -n, --nsfw      defang the URL scheme with nsfw
   -r, --refang    refang IOCs
   -V, --version   display version
