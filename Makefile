@@ -6,7 +6,7 @@ LDFLAGS_DEV = -ldflags "-X main.version=${VERSION}"
 
 #Build release builds
 release: 
-	@CGO_ENABLED=0 gox -osarch="darwin/386 darwin/amd64 linux/386 linux/amd64 windows/386 windows/amd64" ${LDFLAGS} -output="bin/{{.Dir}}_{{.OS}}_{{.Arch}}" cmd/defang/main.go
+	@CGO_ENABLED=0 gox -osarch="darwin/386 darwin/amd64 linux/386 linux/amd64 windows/386 windows/amd64" ${LDFLAGS} -output="bin/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/jakewarren/defang/cmd/defang
 
 #Build a development build
 dev: 
