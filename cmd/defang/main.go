@@ -16,10 +16,11 @@ import (
 var version string
 
 type config struct {
-	refang bool
-	nsfw   bool
-	evil   bool
-	meow   bool
+	refang  bool
+	nsfw    bool
+	evil    bool
+	meow    bool
+	extract bool
 }
 
 type app struct {
@@ -32,8 +33,9 @@ func main() {
 	d := app{}
 
 	pflag.BoolVarP(&d.Config.refang, "refang", "r", false, "refang IOCs")
+	pflag.BoolVarP(&d.Config.extract, "extract", "e", false, "extract IOCs without defanging")
 	pflag.BoolVarP(&d.Config.nsfw, "nsfw", "n", false, "defang the URL scheme with nsfw")
-	pflag.BoolVarP(&d.Config.evil, "evil", "e", false, "defang the URL scheme with evil")
+	pflag.BoolVar(&d.Config.evil, "evil", false, "defang the URL scheme with evil")
 	pflag.BoolVarP(&d.Config.meow, "meow", "m", false, "kitty!")
 	displayVersion := pflag.BoolP("version", "V", false, "display version")
 	displayHelp := pflag.BoolP("help", "h", false, "display help")
@@ -93,6 +95,12 @@ func (d app) defangIOCs() (output string) {
 
 		for _, e := range emails {
 
+			// extract emails without defanging
+			if d.Config.extract {
+				output += e + "\n"
+				continue
+			}
+
 			address := strings.Split(e, "@")
 
 			u, _ := defang.URLWithMask(address[1], m)
@@ -109,6 +117,13 @@ func (d app) defangIOCs() (output string) {
 		links := commonregex.Links(text)
 
 		for _, l := range links {
+
+			// extract links without defanging
+			if d.Config.extract {
+				output += l + "\n"
+				continue
+			}
+
 			u, _ := defang.URLWithMask(l, m)
 
 			output += u + "\n"
