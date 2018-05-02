@@ -25,7 +25,7 @@ func Refang(input interface{}) (string, error) {
 		return "", errors.New("unknown type")
 	}
 
-	re := regexp.MustCompile(`^(?:hxxp|nsfw|evil|meow)`)
+	re := regexp.MustCompile(`(?i)^(?:hxxp|nsfw|evil|meow)`)
 
 	output = re.ReplaceAllString(output, "http")
 
