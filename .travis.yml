@@ -35,6 +35,7 @@ deploy:
     secure: msaX8Nhd/xtjf/55LLFnf1dHBX6JBtHjR0hkg6w+lqTbq2Tj1wc92i99sP2XHTKd83K7remQbsMj0G7vi4Zkno6CuPVdKInmLP1OmyfIyHESkwGi4in/EKuZfZs25+TVOyOK0l2CKiaf9Duuo7DsxswxJc31yKKzH2E1Di3A+O/vRojXvNsDQGuMUKqheVP3lKT988HysHs81SF3m0z4C8qKToIJszqMGp+nUDKURPNd2w4sYa0tTKXCuU/ye0dm2FgO4rETCn7AOIUTVj9NzzcMrVd8tzCGd65JMJoj8ZSB/AccLtREvy1yPey1MoFUwwJd3/EFvDgYD4Anb5U31V6s+so+X64BxkW+pBMPeyQLbv6OEBl4vN8xi0V3Enq7zunWgz8lQxsnTQYqGWMl1DQW/9f4f2s5SEPBSbyy9SUBGGYniW+CeZ2MtYxxFLQoYZafOdYpMp/5zC13xkyEolXsF1F0JWRNrItcNVfVV9WMEmttBvPbr/D4pKbnOjTBc2VL0lWSsMeMYlCbZWBEs3MLKqZyEdRFhohFwBbZMUIpWSuCqmglJ3HXSwmA/76OQaiZ33ZJO/NY/xXEFhIA66McKTxY5LekI8YtKnYvjM+Q/3stvoAo0+pKubnh009/MczQhEoTEExDxL3eWszGACA1vHaua/nvww3mJvAjEuM=
   file_glob: true
   file: 'bin/*' 
+  skip_cleanup: true
   on:
     repo: jakewarren/defang
     tags: true
