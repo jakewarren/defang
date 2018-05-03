@@ -42,13 +42,16 @@ func URL(rawURL interface{}) (string, error) {
 		return "", errors.New("unknown type")
 	}
 
-	u, _ := url.Parse(input)
+	u, err := url.Parse(input)
+	if err != nil {
+		return "", errors.Wrap(err, "error parsing URL (url.Parse)")
+	}
 
 	cache := os.TempDir() + "/tld.cache"
 	extract, err := tldextract.New(cache, false)
 
 	if err != nil {
-		return "", errors.Wrap(err, "error parsing URL")
+		return "", errors.Wrap(err, "error initializing tldextract")
 	}
 
 	var defangedScheme string
