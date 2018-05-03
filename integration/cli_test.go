@@ -52,6 +52,7 @@ func TestCliArgs(t *testing.T) {
 		{"no arguments", []string{}, "no-args.golden"},
 		{"one argument", []string{"google.com"}, "one-argument.golden"},
 		{"file", []string{"testdata/blob.txt"}, "file.golden"},
+		{"suricata dns logs", []string{"testdata/suricata_dns_logs.txt"}, "suricata_dns.golden"},
 		{"refang file", []string{"-r", "integration/file.golden"}, "refang-file.golden"},
 	}
 

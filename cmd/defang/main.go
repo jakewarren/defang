@@ -7,10 +7,12 @@ import (
 	"os"
 	"strings"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/atotto/clipboard"
 	"github.com/jakewarren/defang"
 	"github.com/mingrammer/commonregex"
 	"github.com/spf13/pflag"
+	"mvdan.cc/xurls"
 )
 
 var version string
@@ -114,19 +116,42 @@ func (d app) defangIOCs() (output string) {
 		}
 
 		// process links
-		links := commonregex.Links(text)
+		links := xurls.Relaxed().FindAllString(text, -1)
 
 		for _, l := range links {
 
-			// extract links without defanging
-			if d.Config.extract {
-				output += l + "\n"
-				continue
+			if govalidator.IsURL(l) && !govalidator.IsIPv4(l) {
+
+				// extract links without defanging
+				if d.Config.extract {
+					output += l + "\n"
+					continue
+				}
+
+				u, _ := defang.URLWithMask(l, m)
+
+				output += u + "\n"
 			}
 
-			u, _ := defang.URLWithMask(l, m)
+		}
 
-			output += u + "\n"
+		// process IPv4 addresses
+		ips := commonregex.IPs(text)
+		for _, l := range ips {
+
+			if govalidator.IsIPv4(l) {
+
+				// extract IPs without defanging
+				if d.Config.extract {
+					output += l + "\n"
+					continue
+				}
+
+				u, _ := defang.URLWithMask(l, m)
+
+				output += u + "\n"
+			}
+
 		}
 
 	}

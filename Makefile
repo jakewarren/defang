@@ -24,3 +24,7 @@ clean:
 
 test:
 	@go test -v ./...
+
+# update the golden files used for the integration tests
+update-tests:
+	@go test integration/cli_test.go -update
