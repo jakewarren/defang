@@ -12,7 +12,6 @@ import (
 	"github.com/jakewarren/defang"
 	"github.com/mingrammer/commonregex"
 	"github.com/spf13/pflag"
-	"mvdan.cc/xurls"
 )
 
 var version string
@@ -105,7 +104,10 @@ func (d app) defangIOCs() (output string) {
 
 			address := strings.Split(e, "@")
 
-			u, _ := defang.URLWithMask(address[1], m)
+			u, err := defang.URLWithMask(address[1], m)
+			if err != nil {
+				continue
+			}
 
 			defangedEmail := address[0] + "@" + u
 
@@ -116,7 +118,7 @@ func (d app) defangIOCs() (output string) {
 		}
 
 		// process links
-		links := xurls.Relaxed().FindAllString(text, -1)
+		links := commonregex.Links(text)
 
 		for _, l := range links {
 
@@ -128,7 +130,10 @@ func (d app) defangIOCs() (output string) {
 					continue
 				}
 
-				u, _ := defang.URLWithMask(l, m)
+				u, err := defang.URLWithMask(l, m)
+				if err != nil {
+					continue
+				}
 
 				output += u + "\n"
 			}
@@ -147,7 +152,10 @@ func (d app) defangIOCs() (output string) {
 					continue
 				}
 
-				u, _ := defang.URLWithMask(l, m)
+				u, err := defang.URLWithMask(l, m)
+				if err != nil {
+					continue
+				}
 
 				output += u + "\n"
 			}
