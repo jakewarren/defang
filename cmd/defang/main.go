@@ -72,7 +72,7 @@ func (d app) processInput() {
 	}
 
 	fmt.Print(output)
-	clipboard.WriteAll(output)
+	clipboard.WriteAll(strings.TrimSuffix(output, "\n"))
 
 }
 
