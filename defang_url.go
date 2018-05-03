@@ -51,7 +51,10 @@ func URL(rawURL interface{}) (string, error) {
 		return "", errors.Wrap(err, "error parsing URL")
 	}
 
-	defangedScheme := strings.Replace(u.Scheme, "http", "hxxp", -1)
+	var defangedScheme string
+	if u.Scheme != "" {
+		defangedScheme = strings.Replace(u.Scheme, "http", "hxxp", -1)
+	}
 	host := extract.Extract(input)
 	var defangedHost string
 	if len(host.Sub) > 0 {

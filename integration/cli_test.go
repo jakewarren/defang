@@ -66,6 +66,11 @@ func TestCliArgs(t *testing.T) {
 			cmd := exec.Command(path.Join(dir, "bin", binaryName), tt.args...)
 			output, err := cmd.CombinedOutput()
 			if err != nil {
+				fmt.Printf("debug: dir: %s\n", dir)
+				fmt.Printf("debug: cmd: %s\n", path.Join(dir, "bin", binaryName))
+				fmt.Printf("debug: args: %v\n", tt.args)
+				fmt.Printf("debug: output: %s\n", output)
+				fmt.Printf("debug: error: %s\n", err)
 				t.Fatal(err)
 			}
 
