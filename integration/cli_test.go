@@ -54,6 +54,7 @@ func TestCliArgs(t *testing.T) {
 		{"file", []string{"testdata/blob.txt"}, "file.golden"},
 		{"suricata dns logs", []string{"testdata/suricata_dns_logs.txt"}, "suricata_dns.golden"},
 		{"refang file", []string{"-r", "integration/file.golden"}, "refang-file.golden"},
+		{"single IP argument", []string{"78.56.216.169"}, "single-ip-argument.golden"},
 	}
 
 	for _, tt := range tests {

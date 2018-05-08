@@ -25,6 +25,7 @@ func TestIPv4(t *testing.T) {
 		{"test string input", args{"4.4.4.4"}, "4.4.4[.]4", false},
 		{"test net.IP input", args{net.ParseIP("4.4.4.4")}, "4.4.4[.]4", false},
 		{"test unsupported type", args{false}, "", true},
+		{"ip 1", args{"78.56.216.169"}, "78.56.216[.]169", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

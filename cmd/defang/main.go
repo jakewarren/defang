@@ -152,7 +152,7 @@ func (d app) defangIOCs() (output string) {
 					continue
 				}
 
-				u, err := defang.URLWithMask(l, m)
+				u, err := defang.IPv4(l)
 				if err != nil {
 					continue
 				}
