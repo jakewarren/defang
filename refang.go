@@ -32,6 +32,7 @@ func Refang(input interface{}) (string, error) {
 	output = strings.Replace(output, "[.]", ".", -1)
 	output = strings.Replace(output, "(.)", ".", -1)
 	output = strings.Replace(output, "(dot)", ".", -1)
+	output = strings.Replace(output, "[dot]", ".", -1)
 
 	return output, nil
 
