@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2019-07-11
+### Fixed
+- add support for `<.>` refanging
+- add support for `<dot>` refanging
+- fix issue where url was mangled when there was no scheme provided
+
 ## [1.0.3] - 2018-05-30
 ### Fixed
-- add support for [dot] refanging
+- add support for `[dot]` refanging
 
 ## [1.0.2] - 2018-05-08
 ### Fixed
