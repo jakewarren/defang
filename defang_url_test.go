@@ -34,6 +34,7 @@ func TestURL(t *testing.T) {
 		{"retain URL fragment", args{"https://www.google.co.uk/foobar#baz"}, "hxxps://www.google.co[.]uk/foobar#baz", false},
 		{"IPv4 URL", args{"https://1.2.3.4/foobar"}, "hxxps://1.2.3[.]4/foobar", false},
 		{"simple url", args{"google.com"}, "google[.]com", false},
+		{"complex URL", args{"example.com/dir/subdir/"}, "example[.]com/dir/subdir", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

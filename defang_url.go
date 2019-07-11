@@ -29,8 +29,9 @@ const (
 func URL(rawURL interface{}) (string, error) {
 
 	var (
-		input  string
-		output string
+		input              string
+		output             string
+		inputWithoutScheme bool // indicates the url was provided without an URL scheme
 	)
 
 	switch u := rawURL.(type) {
@@ -40,6 +41,12 @@ func URL(rawURL interface{}) (string, error) {
 		input = u.String()
 	default:
 		return "", errors.New("unknown type")
+	}
+
+	// if the url doesn't have a scheme, add a temporary one so net/url can parse it properly
+	if !strings.HasPrefix(input, "http") {
+		input = "http://" + input
+		inputWithoutScheme = true
 	}
 
 	u, err := url.Parse(input)
@@ -80,7 +87,7 @@ func URL(rawURL interface{}) (string, error) {
 		return "", errors.New("error defanging URL")
 	}
 
-	if len(defangedScheme) > 0 {
+	if len(defangedScheme) > 0 && !inputWithoutScheme {
 		output = defangedScheme + "://" + defangedHost
 	} else {
 		output = defangedHost
