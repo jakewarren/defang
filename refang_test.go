@@ -23,6 +23,8 @@ func TestRefang(t *testing.T) {
 		{"dots in tld 2", args{"hxxps://google.co[.]uk"}, "https://google.co.uk", false},
 		{"subdomain", args{"hxxps://ftp[.]example[.]com"}, "https://ftp.example.com", false},
 		{"dots word in brackets", args{"hxxps://google[dot]com"}, "https://google.com", false},
+		{"dots word in angle brackets", args{"hxxps://google<dot>com"}, "https://google.com", false},
+		{"dots in angle brackets", args{"hxxps://google<.>com"}, "https://google.com", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
