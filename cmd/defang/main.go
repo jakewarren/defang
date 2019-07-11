@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/asaskevich/govalidator"
@@ -15,6 +16,7 @@ import (
 )
 
 var version string
+var ipV4WithPortRE = regexp.MustCompile(`(?m)\d+\.\d+\.\d+\.\d+:\d+`)
 
 type config struct {
 	refang  bool
@@ -121,6 +123,10 @@ func (d app) defangIOCs() (output string) {
 		links := commonregex.Links(text)
 
 		for _, l := range links {
+
+			if ipV4WithPortRE.MatchString(l) {
+				continue
+			}
 
 			if govalidator.IsURL(l) && !govalidator.IsIPv4(l) {
 
