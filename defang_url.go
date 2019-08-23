@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/DNSFilter/tldextract"
 	"github.com/asaskevich/govalidator"
-	"github.com/joeguo/tldextract"
 	"github.com/pkg/errors"
 )
 
