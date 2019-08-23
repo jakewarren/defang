@@ -129,7 +129,6 @@ func (d app) defangIOCs() (output string) {
 			}
 
 			if govalidator.IsURL(l) && !govalidator.IsIPv4(l) {
-
 				// extract links without defanging
 				if d.Config.extract {
 					output += l + "\n"
@@ -151,7 +150,6 @@ func (d app) defangIOCs() (output string) {
 		for _, l := range ips {
 
 			if govalidator.IsIPv4(l) {
-
 				// extract IPs without defanging
 				if d.Config.extract {
 					output += l + "\n"

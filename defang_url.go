@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/DNSFilter/tldextract"
 	"github.com/asaskevich/govalidator"
+	"github.com/jakewarren/tldomains"
 	"github.com/pkg/errors"
 )
 
@@ -27,7 +27,6 @@ const (
 
 // URL defangs an IPv4 address
 func URL(rawURL interface{}) (string, error) {
-
 	var (
 		input              string
 		output             string
@@ -44,7 +43,7 @@ func URL(rawURL interface{}) (string, error) {
 	}
 
 	// if the url doesn't have a scheme, add a temporary one so net/url can parse it properly
-	if !strings.HasPrefix(input, "http") {
+	if !strings.HasPrefix(input, "http://") && !strings.HasPrefix(input, "https://") {
 		input = "http://" + input
 		inputWithoutScheme = true
 	}
@@ -55,8 +54,7 @@ func URL(rawURL interface{}) (string, error) {
 	}
 
 	cache := os.TempDir() + "/tld.cache"
-	extract, err := tldextract.New(cache, false)
-
+	extract, err := tldomains.New(cache)
 	if err != nil {
 		return "", errors.Wrap(err, "error initializing tldextract")
 	}
@@ -65,24 +63,25 @@ func URL(rawURL interface{}) (string, error) {
 	if u.Scheme != "" {
 		defangedScheme = strings.Replace(u.Scheme, "http", "hxxp", -1)
 	}
-	host := extract.Extract(input)
+
+	host := extract.Parse(u.Host)
 	var defangedHost string
-	if len(host.Sub) > 0 {
-		defangedHost = host.Sub + "."
+	if len(host.Subdomain) > 0 {
+		defangedHost = host.Subdomain + "."
 	}
 
 	// if the tld has a period, defang there
-	if strings.Contains(host.Tld, ".") {
-		defangedHost += host.Root + "." + strings.Replace(host.Tld, ".", "[.]", -1)
-	} else if len(host.Tld) > 0 {
-		defangedHost += host.Root + "[.]" + host.Tld
-	} else if govalidator.IsIPv4(host.Root) {
-		ip, ipErr := IPv4(host.Root)
+	if govalidator.IsIPv4(u.Host) {
+		ip, ipErr := IPv4(u.Host)
 		if ipErr != nil {
 			return "", errors.New("error defanging IPv4 URL")
 		}
 
-		defangedHost += ip
+		defangedHost = ip
+	} else if strings.Contains(host.Suffix, ".") {
+		defangedHost += host.Root + "." + strings.Replace(host.Suffix, ".", "[.]", -1)
+	} else if len(host.Suffix) > 0 {
+		defangedHost += host.Root + "[.]" + host.Suffix
 	} else {
 		return "", errors.New("error defanging URL")
 	}
@@ -110,7 +109,6 @@ func URL(rawURL interface{}) (string, error) {
 
 // URLWithMask defangs a URL and applies the specified defanging scheme
 func URLWithMask(rawURL interface{}, m Mask) (string, error) {
-
 	output, err := URL(rawURL)
 	if err != nil {
 		return "", err
@@ -132,5 +130,4 @@ func URLWithMask(rawURL interface{}, m Mask) (string, error) {
 	re := regexp.MustCompile(`^hxxp`)
 
 	return re.ReplaceAllString(output, maskStr), nil
-
 }
