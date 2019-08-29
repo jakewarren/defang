@@ -1,4 +1,4 @@
-lightboxapi1.azurewebsites[.]net
+lightboxapi1[.]azurewebsites[.]net
 10.16.0[.]4
 1.2.3[.]4
 cloud.ed4[.]net
@@ -37,7 +37,7 @@ cdn.tt.omtrdc[.]net
 cloud.tt.omtrdc[.]net
 10.16.0[.]4
 1.2.3[.]4
-20.40.50.10.in-addr[.]arpa
+20.40.50.10[.]in-addr[.]arpa
 20.40.50[.]10
 10.16.0[.]245
 10.16.0[.]4

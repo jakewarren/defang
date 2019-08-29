@@ -79,7 +79,7 @@ func URL(rawURL interface{}) (string, error) {
 
 		defangedHost = ip
 	} else if strings.Contains(host.Suffix, ".") {
-		defangedHost += host.Root + "." + strings.Replace(host.Suffix, ".", "[.]", -1)
+		defangedHost += host.Root + "[.]" + strings.Replace(host.Suffix, ".", "[.]", -1)
 	} else if len(host.Suffix) > 0 {
 		defangedHost += host.Root + "[.]" + host.Suffix
 	} else {

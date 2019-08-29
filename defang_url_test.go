@@ -8,13 +8,13 @@ import (
 func ExampleURL() {
 	d, _ := URL("https://subdomain.bing.co.uk/search?q=testquery#testanchor")
 	fmt.Println(d)
-	// Output: hxxps://subdomain.bing.co[.]uk/search?q=testquery#testanchor
+	// Output: hxxps://subdomain.bing[.]co[.]uk/search?q=testquery#testanchor
 }
 
 func ExampleURLWithMask() {
 	d, _ := URLWithMask("https://subdomain.bing.co.uk/search?q=testquery#testanchor", Meow)
 	fmt.Println(d)
-	// Output: meows://subdomain.bing.co[.]uk/search?q=testquery#testanchor
+	// Output: meows://subdomain.bing[.]co[.]uk/search?q=testquery#testanchor
 }
 
 func TestURL(t *testing.T) {
@@ -30,8 +30,8 @@ func TestURL(t *testing.T) {
 		{"simple http", args{"http://www.google.com"}, "hxxp://www.google[.]com", false},
 		{"simple https", args{"https://www.google.com"}, "hxxps://www.google[.]com", false},
 		{"multiple subdomains", args{"https://sub.www.google.com"}, "hxxps://sub.www.google[.]com", false},
-		{"complex tld", args{"https://www.google.co.uk"}, "hxxps://www.google.co[.]uk", false},
-		{"retain URL fragment", args{"https://www.google.co.uk/foobar#baz"}, "hxxps://www.google.co[.]uk/foobar#baz", false},
+		{"complex tld", args{"https://www.google.co.uk"}, "hxxps://www.google[.]co[.]uk", false},
+		{"retain URL fragment", args{"https://www.google.co.uk/foobar#baz"}, "hxxps://www.google[.]co[.]uk/foobar#baz", false},
 		{"IPv4 URL", args{"https://1.2.3.4/foobar"}, "hxxps://1.2.3[.]4/foobar", false},
 		{"simple url", args{"google.com"}, "google[.]com", false},
 		{"complex URL", args{"example.com/dir/subdir/"}, "example[.]com/dir/subdir/", false},
