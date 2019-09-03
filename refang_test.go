@@ -25,6 +25,7 @@ func TestRefang(t *testing.T) {
 		{"dots word in brackets", args{"hxxps://google[dot]com"}, "https://google.com", false},
 		{"dots word in angle brackets", args{"hxxps://google<dot>com"}, "https://google.com", false},
 		{"dots in angle brackets", args{"hxxps://google<.>com"}, "https://google.com", false},
+		{"slashes brackets", args{"hxxps:[//]google<.>com"}, "https://google.com", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

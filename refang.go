@@ -11,7 +11,6 @@ import (
 
 // Refang takes a defanged IOC and returns it to it's original form
 func Refang(input interface{}) (string, error) {
-
 	var output string
 
 	switch i := input.(type) {
@@ -35,7 +34,8 @@ func Refang(input interface{}) (string, error) {
 	output = strings.Replace(output, "(dot)", ".", -1)
 	output = strings.Replace(output, "[dot]", ".", -1)
 	output = strings.Replace(output, "<dot>", ".", -1)
+	output = strings.Replace(output, "[//]", "//", -1)
+	output = strings.Replace(output, "<//>", "//", -1)
 
 	return output, nil
-
 }
