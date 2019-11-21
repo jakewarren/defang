@@ -24,6 +24,8 @@ func Refang(input interface{}) (string, error) {
 		return "", errors.New("unknown type")
 	}
 
+	output = strings.ToLower(output)
+
 	re := regexp.MustCompile(`(?i)^(?:hxxp|nsfw|evil|meow)`)
 
 	output = re.ReplaceAllString(output, "http")
@@ -31,9 +33,10 @@ func Refang(input interface{}) (string, error) {
 	output = strings.Replace(output, "[.]", ".", -1)
 	output = strings.Replace(output, "(.)", ".", -1)
 	output = strings.Replace(output, "<.>", ".", -1)
-	output = strings.Replace(output, "(dot)", ".", -1)
-	output = strings.Replace(output, "[dot]", ".", -1)
-	output = strings.Replace(output, "<dot>", ".", -1)
+
+	dotRE := regexp.MustCompile(`(?i)[\[<(]dot[\]>)]`)
+	output = dotRE.ReplaceAllString(output, ".")
+
 	output = strings.Replace(output, "[//]", "//", -1)
 	output = strings.Replace(output, "<//>", "//", -1)
 
