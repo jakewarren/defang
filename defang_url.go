@@ -71,19 +71,21 @@ func URL(rawURL interface{}) (string, error) {
 	}
 
 	// if the tld has a period, defang there
-	if govalidator.IsIPv4(u.Host) {
+	switch {
+	case govalidator.IsIPv4(u.Host):
 		ip, ipErr := IPv4(u.Host)
 		if ipErr != nil {
 			return "", errors.New("error defanging IPv4 URL")
 		}
 
 		defangedHost = ip
-	} else if strings.Contains(host.Suffix, ".") {
+	case strings.Contains(host.Suffix, "."):
 		defangedHost += host.Root + "[.]" + strings.Replace(host.Suffix, ".", "[.]", -1)
-	} else if len(host.Suffix) > 0 {
+	case len(host.Suffix) > 0:
 		defangedHost += host.Root + "[.]" + host.Suffix
-	} else {
+	default:
 		return "", errors.New("error defanging URL")
+
 	}
 
 	if len(defangedScheme) > 0 && !inputWithoutScheme {

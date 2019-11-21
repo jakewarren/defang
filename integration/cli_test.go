@@ -1,3 +1,4 @@
+// nolint:scopelint,gosec
 package main
 
 import (

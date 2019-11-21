@@ -1,3 +1,4 @@
+// nolint:scopelint
 package defang
 
 import (

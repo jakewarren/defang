@@ -32,7 +32,6 @@ type app struct {
 }
 
 func main() {
-
 	d := app{}
 
 	pflag.BoolVarP(&d.Config.refang, "refang", "r", false, "refang IOCs")
@@ -59,11 +58,9 @@ func main() {
 	d.input = getInput()
 
 	d.processInput()
-
 }
 
 func (d app) processInput() {
-
 	var output string
 
 	if d.Config.refang {
@@ -73,8 +70,7 @@ func (d app) processInput() {
 	}
 
 	fmt.Print(output)
-	clipboard.WriteAll(strings.TrimSuffix(output, "\n"))
-
+	_ = clipboard.WriteAll(strings.TrimSuffix(output, "\n"))
 }
 
 func (d app) defangIOCs() (output string) {
@@ -82,11 +78,12 @@ func (d app) defangIOCs() (output string) {
 
 	m := defang.Hxxp
 
-	if d.Config.meow {
+	switch {
+	case d.Config.meow:
 		m = defang.Meow
-	} else if d.Config.nsfw {
+	case d.Config.nsfw:
 		m = defang.Nsfw
-	} else if d.Config.evil {
+	case d.Config.evil:
 		m = defang.Evil
 	}
 
@@ -113,7 +110,7 @@ func (d app) defangIOCs() (output string) {
 
 			defangedEmail := address[0] + "@" + u
 
-			//remove the email to prevent it from being processed again as a URL
+			// remove the email to prevent it from being processed again as a URL
 			text = strings.Replace(text, e, "", -1)
 
 			output += defangedEmail + "\n"
@@ -148,7 +145,6 @@ func (d app) defangIOCs() (output string) {
 		// process IPv4 addresses
 		ips := commonregex.IPs(text)
 		for _, l := range ips {
-
 			if govalidator.IsIPv4(l) {
 				// extract IPs without defanging
 				if d.Config.extract {
@@ -163,11 +159,10 @@ func (d app) defangIOCs() (output string) {
 
 				output += u + "\n"
 			}
-
 		}
 
 	}
-	return
+	return output
 }
 
 func (d app) refangIOCs() (output string) {
@@ -184,15 +179,15 @@ func (d app) refangIOCs() (output string) {
 
 // getInput determines the input source between STDIN, String param or file name
 func getInput() io.Reader {
-
 	var f io.Reader
 	fi, err := os.Stdin.Stat()
 	if err != nil {
 		panic(err)
 	}
-	if fi.Mode()&os.ModeNamedPipe != 0 { // check if STDIN is attached
+	switch {
+	case fi.Mode()&os.ModeNamedPipe != 0: // check if STDIN is attached
 		f = os.Stdin
-	} else if len(pflag.Args()) > 0 {
+	case len(pflag.Args()) > 0:
 		// check the first argument to see if it's a file
 		if fileExists(pflag.Arg(0)) {
 			f, err = os.Open(pflag.Arg(0))
@@ -202,8 +197,7 @@ func getInput() io.Reader {
 		} else { // if the user did not pass a file then process the arguments
 			f = strings.NewReader(strings.Join(pflag.Args(), "\n"))
 		}
-
-	} else {
+	default:
 		displayUsage()
 		os.Exit(0)
 	}
@@ -220,7 +214,6 @@ func fileExists(filepath string) bool {
 
 // print custom usage instead of the default provided by pflag
 func displayUsage() {
-
 	fmt.Printf("Usage: defang [<flags>] [FILE]\n\n")
 	fmt.Printf("Optional flags:\n\n")
 	pflag.PrintDefaults()
