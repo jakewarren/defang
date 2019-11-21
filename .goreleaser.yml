@@ -1,0 +1,28 @@
+builds:
+  -
+    main: ./cmd/defang
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.buildDate={{.Date}}
+
+archives:
+  -
+    format: binary
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+      - '^release'
+      - (?i)update (README|goreleaser)
