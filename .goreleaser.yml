@@ -5,6 +5,10 @@ builds:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.buildDate={{.Date}}
+    goos:
+      - linux
+      - darwin
+      - windows
 
 archives:
   -
