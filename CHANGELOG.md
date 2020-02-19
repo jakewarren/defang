@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [unreleased]
 
+## [1.0.7] - 2020-02-19
+### Changed
+- enhance refanging by supporting `<DOT>` refanging
+
 ## [1.0.6] - 2019-09-23
 ### Fixed
 - fixed an issue with defanging TLDs containing periods
@@ -40,7 +44,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial Release
 
 
-[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.6...HEAD
+[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/jakewarren/defang/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/jakewarren/defang/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/jakewarren/defang/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/jakewarren/defang/compare/v1.0.3...v1.0.4
