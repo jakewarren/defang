@@ -95,7 +95,7 @@ func URL(rawURL interface{}) (string, error) {
 	}
 
 	if len(u.Path) > 0 && len(u.Scheme) > 0 {
-		output += u.Path
+		output += u.EscapedPath()
 	}
 
 	if len(u.RawQuery) > 0 {

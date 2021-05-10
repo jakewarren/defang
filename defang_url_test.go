@@ -36,6 +36,7 @@ func TestURL(t *testing.T) {
 		{"IPv4 URL", args{"https://1.2.3.4/foobar"}, "hxxps://1.2.3[.]4/foobar", false},
 		{"simple url", args{"google.com"}, "google[.]com", false},
 		{"complex URL", args{"example.com/dir/subdir/"}, "example[.]com/dir/subdir/", false},
+		{"URL with special characters", args{"https://www.ncsc.gov.uk/files/Advisory%20Further%20TTPs%20associated%20with%20SVR%20cyber%20actors.pdf"}, "hxxps://www.ncsc[.]gov[.]uk/files/Advisory%20Further%20TTPs%20associated%20with%20SVR%20cyber%20actors.pdf", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
