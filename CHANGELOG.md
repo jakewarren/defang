@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [unreleased]
 
+## [1.0.8] - 2021-05-10
+### Fixed
+- fixed a bug that would cause special characters to be printed in an unescaped form
+
 ## [1.0.7] - 2020-02-19
 ### Changed
 - enhance refanging by supporting `<DOT>` refanging
@@ -44,7 +48,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial Release
 
 
-[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.7...HEAD
+[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/jakewarren/defang/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/jakewarren/defang/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/jakewarren/defang/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/jakewarren/defang/compare/v1.0.4...v1.0.5
