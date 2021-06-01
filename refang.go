@@ -40,5 +40,7 @@ func Refang(input interface{}) (string, error) {
 	output = strings.Replace(output, "[//]", "//", -1)
 	output = strings.Replace(output, "<//>", "//", -1)
 
+	output = strings.Replace(output, "httpx", "https", -1)
+
 	return output, nil
 }

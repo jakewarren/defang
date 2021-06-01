@@ -14,6 +14,7 @@ func TestRefang(t *testing.T) {
 		wantErr bool
 	}{
 		{"simple http", args{"hxxp://google[.]com"}, "http://google.com", false},
+		{"simple httpx", args{"httpx://google[.]com"}, "https://google.com", false},
 		{"simple http 2", args{"hXXp://evil.example[.]com/malicious.php"}, "http://evil.example.com/malicious.php", false},
 		{"simple https", args{"hxxps://google[.]com"}, "https://google.com", false},
 		{"meow", args{"meows://google[.]com"}, "https://google.com", false},
