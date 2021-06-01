@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [unreleased]
 
+## [1.0.9] - 2021-06-01
+### Changed
+- correctly refang links with 'httpx://'
+
 ## [1.0.8] - 2021-05-10
 ### Fixed
 - fixed a bug that would cause special characters to be printed in an unescaped form
@@ -48,7 +52,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial Release
 
 
-[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.8...HEAD
+[unreleased]: https://github.com/jakewarren/defang/compare/v1.0.9...HEAD
+[1.0.9]: https://github.com/jakewarren/defang/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/jakewarren/defang/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/jakewarren/defang/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/jakewarren/defang/compare/v1.0.5...v1.0.6
