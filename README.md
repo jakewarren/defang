@@ -1,7 +1,7 @@
 # defang
 
 [![](https://godoc.org/github.com/jakewarren/defang?status.svg)](http://godoc.org/github.com/jakewarren/defang) 
-[![CircleCI](https://circleci.com/gh/jakewarren/defang.svg?style=shield)](https://circleci.com/gh/jakewarren/defang)
+[![Build Status](https://github.com/jakewarren/defang/workflows/lint/badge.svg)](https://github.com/jakewarren/defang/actions)
 [![GitHub release](http://img.shields.io/github/release/jakewarren/defang.svg?style=flat-square)](https://github.com/jakewarren/defang/releases])
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/jakewarren/defang/blob/master/LICENSE)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jakewarren/defang)](https://goreportcard.com/report/github.com/jakewarren/defang)
